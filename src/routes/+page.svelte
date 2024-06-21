@@ -1,45 +1,33 @@
 <script lang="ts">
     import Lightswitch from "$lib/components/ui/lightswitch/lightswitch.svelte";
+    import * as Sheet from "$lib/components/ui/sheet";
     import Cell from "$lib/components/ui/cell/cell.svelte";
+    
+    let open = false;
+
+    const handleCellClick = () => {
+        open = true;
+    }
 </script>
 
 <div class="flex flex-row items-center justify-center h-screen">
-    
-    <div class="flex flex-col">
-        <div class="flex flex-col gap-1 w-[600px] h-[600px]">
-            <div class="flex flex-row gap-1 w-full h-full">
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-            </div>
-            <div class="flex flex-row gap-1 w-full h-full">
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-            </div>
-            <div class="flex flex-row gap-1 w-full h-full">
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-                <div class="w-1/3 h-full">
-                    <Cell />
-                </div>
-            </div>
+    <Sheet.Root bind:open>
+        <Sheet.Trigger class="hidden"></Sheet.Trigger>
+        <div class="grid grid-cols-3 gap-1">
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
+            <Cell bind:open={open} />
         </div>
-    </div>
+        <Sheet.Content side="left">
+            <Sheet.Header>
+                <Sheet.Title>Sheet</Sheet.Title>
+            </Sheet.Header>
+        </Sheet.Content>
+    </Sheet.Root>
 </div>
