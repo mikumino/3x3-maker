@@ -4,13 +4,14 @@
     import Cell from "$lib/components/ui/cell/cell.svelte";
 
     let open = false;
-    let selectedCellIndex = null;
+    let selectedCell = null;
 
     let cells = Array(9).fill(null).map((_, i) => ({ id: i, imageUrl: null, title: null }));
 
     const handleCellClick = (data: CellData) => { 
         open = true;
-        console.log(data.id);
+        selectedCell = data;
+        console.log(data);
     }
 </script>
 
@@ -22,10 +23,11 @@
                 <Cell on:click={(e) => handleCellClick(e.detail)} data={cell} />
             {/each}
         </div>
-        <Sheet.Content side="left">
+        <Sheet.Content class="w-screen" side="left">
             <Sheet.Header>
-                <Sheet.Title>Sheet</Sheet.Title>
+                <Sheet.Title>3x3 Maker</Sheet.Title>
             </Sheet.Header>
+
         </Sheet.Content>
     </Sheet.Root>
 </div>
