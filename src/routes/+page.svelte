@@ -2,11 +2,15 @@
     import Lightswitch from "$lib/components/ui/lightswitch/lightswitch.svelte";
     import * as Sheet from "$lib/components/ui/sheet";
     import Cell from "$lib/components/ui/cell/cell.svelte";
-    
-    let open = false;
 
-    const handleCellClick = () => {
+    let open = false;
+    let selectedCellIndex = null;
+
+    let cells = Array(9).fill(null).map((_, i) => ({ id: i, imageUrl: null, title: null }));
+
+    const handleCellClick = (data: CellData) => { 
         open = true;
+        console.log(data.id);
     }
 </script>
 
@@ -14,15 +18,9 @@
     <Sheet.Root bind:open>
         <Sheet.Trigger class="hidden"></Sheet.Trigger>
         <div class="grid grid-cols-3 gap-1">
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
-            <Cell bind:open={open} />
+            {#each cells as cell}
+                <Cell on:click={(e) => handleCellClick(e.detail)} data={cell} />
+            {/each}
         </div>
         <Sheet.Content side="left">
             <Sheet.Header>
