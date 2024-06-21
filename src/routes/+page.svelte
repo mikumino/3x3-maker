@@ -4,6 +4,7 @@
     import * as Sheet from "$lib/components/ui/sheet";
     import Cell from "$lib/components/ui/cell/cell.svelte";
 	import Button from "$lib/components/ui/button/button.svelte";
+	import Input from "$lib/components/ui/input/input.svelte";
 
     let open = false;
     let selectedCell = null;
@@ -31,7 +32,7 @@
         <Sheet.Content class="w-screen" side="left">
             <Sheet.Header>
                 <Sheet.Title>3x3 Maker</Sheet.Title>
-                <div class="flex flex-col space-y-2">
+                <div class="flex flex-col space-y-4">
                     <div class="flex flex-row gap-3">
                         <Button on:click={() => selectedType = "animanga"} variant={selectedType === "animanga" ? "default" : "ghost"}>Anime/Manga</Button>
                         <Button on:click={() => selectedType = "music"} variant={selectedType === "music" ? "default" : "ghost"}>Music</Button>
@@ -49,6 +50,19 @@
                             <Button on:click={() => selectedGameSubType = "character" } variant={selectedGameSubType === "character" ? "default" : "ghost"}>Character</Button>
                         {/if}
                     </div>
+                    {#if selectedType === "animanga"}
+                        <p class="text-sm text-muted-foreground">Anime/Manga search is powered by <a class="text-primary hover:underline" href="https://anilist.co">AniList</a>.</p>
+                    {/if}
+                    {#if selectedType === "music"}
+                        <p class="text-sm text-muted-foreground">Music search is powered by <a class="text-primary hover:underline" href="https://www.last.fm/">Last.fm</a>.</p>
+                    {/if}
+                    {#if selectedType === "games"}
+                        <p class="text-sm text-muted-foreground">Game search is powered by <a class="text-primary hover:underline" href="https://www.giantbomb.com/">Giantbomb</a>.</p>
+                    {/if}
+                    {#if selectedType === "general"}
+                        <p class="text-sm text-muted-foreground">General search is powered by <a class="text-primary hover:underline" href="https://www.unsplash.com/">Unsplash</a>.</p>
+                    {/if}
+                    <Input placeholder="Search" />
                 </div>
             </Sheet.Header>
 
