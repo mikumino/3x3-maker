@@ -1,6 +1,6 @@
 <script lang="ts">
     import Lightswitch from "$lib/components/ui/lightswitch/lightswitch.svelte";
-    import * as RadioGroup from "$lib/components/ui/radio-group";
+    import Searchresults from "$lib/components/ui/searchresults/searchresults.svelte";
     import * as Sheet from "$lib/components/ui/sheet";
     import Cell from "$lib/components/ui/cell/cell.svelte";
 	import Button from "$lib/components/ui/button/button.svelte";
@@ -11,6 +11,14 @@
     let selectedType = "animanga";
     let selectedAnimangaSubType = "anime";
     let selectedGameSubType = "game";
+    let query = "";
+
+    let searchQuery: SearchQuery = {
+        query: "",
+        type: "animanga",
+        selectedAnimangaSubType: "anime",
+        selectedGameSubType: "game"
+    };
 
     let cells = Array(9).fill(null).map((_, i) => ({ id: i, imageUrl: null, title: null }));
 
@@ -18,6 +26,16 @@
         open = true;
         selectedCell = data;
         console.log(data);
+    }
+
+    const handleSubmit = (e: Event) => {
+        e.preventDefault();
+        searchQuery = {
+            query: query,
+            type: selectedType,
+            selectedAnimangaSubType: selectedAnimangaSubType,
+            selectedGameSubType: selectedGameSubType
+        }
     }
 </script>
 
@@ -62,7 +80,10 @@
                     {#if selectedType === "general"}
                         <p class="text-sm text-muted-foreground">General search is powered by <a class="text-primary hover:underline" href="https://www.unsplash.com/">Unsplash</a>.</p>
                     {/if}
-                    <Input placeholder="Search" />
+                    <form on:submit|preventDefault={handleSubmit}>
+                        <Input bind:value={query} placeholder="Search" />
+                    </form>
+                    <Searchresults searchQuery={searchQuery} />
                 </div>
             </Sheet.Header>
 
