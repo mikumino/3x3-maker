@@ -3,7 +3,6 @@
     import { fly } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
     export let cell: CellData;
-    export let open: boolean;
     export let searchQuery: SearchQuery;
 
     const dispatch = createEventDispatcher();
@@ -78,7 +77,6 @@
         cell.imageUrl = result.imageUrl;
         cell.title = result.title;
         dispatch('resultClick', result);
-        console.log(open);
         console.log(cell);
     }
 

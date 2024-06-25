@@ -51,7 +51,7 @@
     <Sheet.Root bind:open>
         <Sheet.Trigger class="hidden"></Sheet.Trigger>
         <div class="grid grid-cols-3 gap-1">
-            {#each cells as cell}
+            {#each cells as cell (cell.id)}
                 <Cell on:click={(e) => handleCellClick(e.detail)} data={cell} />
             {/each}
         </div>
@@ -95,7 +95,7 @@
                     <form on:submit|preventDefault={handleSubmit}>
                         <Input bind:value={query} placeholder="Search" />
                     </form>
-                    <Searchresults on:resultClick={handleResultClick} cell={selectedCell} open={open} searchQuery={searchQuery} />
+                    <Searchresults on:resultClick={handleResultClick} cell={selectedCell} searchQuery={searchQuery} />
                 </div>
 
         </Sheet.Content>
