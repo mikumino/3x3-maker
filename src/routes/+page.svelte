@@ -5,6 +5,8 @@
     import Cell from "$lib/components/ui/cell/cell.svelte";
 	import Button from "$lib/components/ui/button/button.svelte";
 	import Input from "$lib/components/ui/input/input.svelte";
+    import { flip } from "svelte/animate";
+    import { dndzone } from "svelte-dnd-action";
 
     let open = false;
     let selectedCell: CellData;
@@ -45,14 +47,24 @@
         cells = cells;
         open = false;
     }
+
+    const handleDndConsider = (e) => {
+        cells = e.detail.items;
+    }
+    const handleDndFinalize = (e) => {
+        cells = e.detail.items;
+    }
+
 </script>
 
 <div class="flex flex-row items-center justify-center h-screen">
     <Sheet.Root bind:open>
         <Sheet.Trigger class="hidden"></Sheet.Trigger>
-        <div class="grid grid-cols-3 gap-1">
+        <div class="grid grid-cols-3 gap-1" use:dndzone={{ items: cells, flipDurationMs: 300}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
             {#each cells as cell (cell.id)}
+            <div animate:flip="{{duration: 300}}">
                 <Cell on:click={(e) => handleCellClick(e.detail)} data={cell} />
+            </div>
             {/each}
         </div>
         <div class="absolute bottom-5 right-5">
