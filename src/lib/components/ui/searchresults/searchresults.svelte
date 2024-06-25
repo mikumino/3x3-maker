@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { quintOut } from "svelte/easing";
+    import { fly } from "svelte/transition";
     export let searchQuery: SearchQuery;
 
     interface AnilistResponse {
@@ -78,7 +80,7 @@
 <div class="grid grid-cols-2 overflow-y-scroll gap-4 p-4 max-h-full">
     {#each results as result}
         <div class="flex flex-col gap-2">
-            <img class="aspect-square object-cover rounded-sm" src={result.imageUrl} alt="result" />
+            <img in:fly={{y: 10, easing:quintOut}} out:fly={{y: 10, easing:quintOut}} class="aspect-square object-cover rounded-sm" src={result.imageUrl} alt="result" />
             <!-- <p>{result.title}</p> -->
         </div>
     {/each}
