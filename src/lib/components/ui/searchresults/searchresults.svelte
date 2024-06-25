@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { quintOut } from "svelte/easing";
     import { fly } from "svelte/transition";
+    import { createEventDispatcher } from "svelte";
+    export let cell: CellData;
+    export let open: boolean;
     export let searchQuery: SearchQuery;
+
+    const dispatch = createEventDispatcher();
 
     interface AnilistResponse {
         data: {
@@ -68,6 +73,15 @@
         }
     }
 
+    const handleResultClick = (result: Result) => {
+        console.log(result);
+        cell.imageUrl = result.imageUrl;
+        cell.title = result.title;
+        dispatch('resultClick', result);
+        console.log(open);
+        console.log(cell);
+    }
+
     $: {
         if (searchQuery.query) {
             fetchResults();
@@ -79,7 +93,7 @@
 
 <div class="grid grid-cols-2 overflow-y-auto gap-4 p-4 max-h-full">
     {#each results as result, i (result.imageUrl)}
-    <div class="aspect-square grid-rows-1 grid-cols-1">
+    <button on:click={() => handleResultClick(result)} class="aspect-square grid-rows-1 grid-cols-1">
         <img 
         in:fly={{y: 10, easing: quintOut, duration: 300, delay: 300 + 50*i}} 
         out:fly={{y: 10, easing: quintOut, duration: 300}}
@@ -87,6 +101,6 @@
         src={result.imageUrl} 
         alt={result.title} 
         />
-    </div>
+    </button>
     {/each}
 </div>

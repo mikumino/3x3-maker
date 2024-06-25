@@ -7,7 +7,7 @@
 	import Input from "$lib/components/ui/input/input.svelte";
 
     let open = false;
-    let selectedCell = null;
+    let selectedCell: CellData;
     let selectedType = "animanga";
     let selectedAnimangaSubType = "anime";
     let selectedGameSubType = "game";
@@ -25,7 +25,7 @@
     const handleCellClick = (data: CellData) => { 
         open = true;
         selectedCell = data;
-        console.log(data);
+        console.log(selectedCell);
     }
 
     const handleSubmit = (e: Event) => {
@@ -36,6 +36,14 @@
             selectedAnimangaSubType: selectedAnimangaSubType,
             selectedGameSubType: selectedGameSubType
         }
+    }
+
+    const handleResultClick = (e: Event) => {
+        console.log(e.detail);
+        selectedCell.imageUrl = e.detail.imageUrl;
+        selectedCell.title = e.detail.title;
+        cells = cells;
+        open = false;
     }
 </script>
 
@@ -87,7 +95,7 @@
                     <form on:submit|preventDefault={handleSubmit}>
                         <Input bind:value={query} placeholder="Search" />
                     </form>
-                    <Searchresults searchQuery={searchQuery} />
+                    <Searchresults on:resultClick={handleResultClick} cell={selectedCell} open={open} searchQuery={searchQuery} />
                 </div>
 
         </Sheet.Content>

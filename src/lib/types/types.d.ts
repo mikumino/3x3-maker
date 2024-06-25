@@ -1,5 +1,5 @@
 interface CellData {
-    id: number;
+    id: number | null;
     imageUrl: string | null;
     title: string | null;
 }
