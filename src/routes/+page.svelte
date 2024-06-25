@@ -47,6 +47,9 @@
                 <Cell on:click={(e) => handleCellClick(e.detail)} data={cell} />
             {/each}
         </div>
+        <div class="absolute bottom-5 right-5">
+            <Lightswitch />
+        </div>
         <Sheet.Content class="w-screen" side="left">
             <Sheet.Header>
                 <Sheet.Title>3x3 Maker</Sheet.Title>
