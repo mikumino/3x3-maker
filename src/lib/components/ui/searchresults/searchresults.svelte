@@ -79,12 +79,14 @@
 
 <div class="grid grid-cols-2 overflow-y-scroll gap-4 p-4 max-h-full">
     {#each results as result, i}
+    <div class="aspect-square">
         <img 
-            in:fly={{y: 10, easing: quintOut, delay: 50*i}} 
-            out:fly={{y: 10, easing: quintOut, delay: 50*i}}
-            class="aspect-square object-cover rounded-sm" 
-            src={result.imageUrl} 
-            alt={result.title} 
+        in:fly={{y: 10, easing: quintOut, delay: 50*i}} 
+        out:fly={{y: 10, easing: quintOut, delay: 50*i}}
+        class="object-cover h-full w-full rounded-sm" 
+        src={result.imageUrl} 
+        alt={result.title} 
         />
+    </div>
     {/each}
 </div>
