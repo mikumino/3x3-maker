@@ -58,13 +58,13 @@
             console.log(data);
 
             // sort by popularity
-            results = data.data.Page.media.sort((a, b) => b.popularity - a.popularity).map(media => ({
+            results = data.data.Page.media
+            .sort((a, b) => b.popularity - a.popularity).map(media => ({
                 imageUrl: media.coverImage.extraLarge,
                 title: media.title.english,
-            }));
+            }))
+            .filter(result => result.imageUrl);
 
-            // remove entries with no image
-            results = results.filter(result => result.imageUrl);
         }
     }
 
@@ -77,13 +77,13 @@
     }
 </script>
 
-<div class="grid grid-cols-2 overflow-y-scroll gap-4 p-4 max-h-full">
-    {#each results as result, i}
-    <div class="aspect-square">
+<div class="grid grid-cols-2 overflow-y-auto gap-4 p-4 max-h-full">
+    {#each results as result, i (result.imageUrl)}
+    <div class="aspect-square grid-rows-1 grid-cols-1">
         <img 
-        in:fly={{y: 10, easing: quintOut, delay: 50*i}} 
-        out:fly={{y: 10, easing: quintOut, delay: 50*i}}
-        class="object-cover h-full w-full rounded-sm" 
+        in:fly={{y: 10, easing: quintOut, duration: 300, delay: 300 + 50*i}} 
+        out:fly={{y: 10, easing: quintOut, duration: 300}}
+        class="object-cover h-full w-full rounded-sm col-span-1 row-span-1" 
         src={result.imageUrl} 
         alt={result.title} 
         />
