@@ -75,7 +75,7 @@
     }
 </script>
 
-<div class="grid grid-cols-2 gap-4 p-4 overflow-y-scroll h-full">
+<div class="grid grid-cols-2 overflow-y-scroll gap-4 p-4 max-h-full">
     {#each results as result}
         <div class="flex flex-col gap-2">
             <img class="aspect-square object-cover rounded-sm" src={result.imageUrl} alt="result" />

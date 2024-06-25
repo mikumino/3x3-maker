@@ -50,7 +50,8 @@
         <Sheet.Content class="w-screen" side="left">
             <Sheet.Header>
                 <Sheet.Title>3x3 Maker</Sheet.Title>
-                <div class="flex flex-col space-y-4">
+            </Sheet.Header>
+                <div class="flex flex-col h-full space-y-4">
                     <div class="flex flex-row gap-3">
                         <Button on:click={() => selectedType = "animanga"} variant={selectedType === "animanga" ? "default" : "ghost"}>Anime/Manga</Button>
                         <Button on:click={() => selectedType = "music"} variant={selectedType === "music" ? "default" : "ghost"}>Music</Button>
@@ -83,11 +84,8 @@
                     <form on:submit|preventDefault={handleSubmit}>
                         <Input bind:value={query} placeholder="Search" />
                     </form>
-                    <div class="h-full">
-                        <Searchresults searchQuery={searchQuery} />
-                    </div>
+                    <Searchresults searchQuery={searchQuery} />
                 </div>
-            </Sheet.Header>
 
         </Sheet.Content>
     </Sheet.Root>
