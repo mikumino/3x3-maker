@@ -83,7 +83,9 @@
                     <form on:submit|preventDefault={handleSubmit}>
                         <Input bind:value={query} placeholder="Search" />
                     </form>
-                    <Searchresults searchQuery={searchQuery} />
+                    <div class="h-full">
+                        <Searchresults searchQuery={searchQuery} />
+                    </div>
                 </div>
             </Sheet.Header>
 
