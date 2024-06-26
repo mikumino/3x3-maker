@@ -40,7 +40,7 @@
         }
     }
 
-    const handleResultClick = (e: Event) => {
+    const handleResultClick = (e: CustomEvent) => {
         console.log(e.detail);
         selectedCell.imageUrl = e.detail.imageUrl;
         selectedCell.title = e.detail.title;
@@ -48,10 +48,10 @@
         open = false;
     }
 
-    const handleDndConsider = (e) => {
+    const handleDndConsider = (e: CustomEvent) => {
         cells = e.detail.items;
     }
-    const handleDndFinalize = (e) => {
+    const handleDndFinalize = (e: CustomEvent) => {
         cells = e.detail.items;
     }
 
