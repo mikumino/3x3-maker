@@ -55,6 +55,38 @@
         cells = e.detail.items;
     }
 
+    // TODO: make this fully work
+    // It kinda draws some stuff, but it's not fully working
+    // I might have my dimensions wrong
+    const handleExport = async () => {
+        // turn cells into an image
+        const canvas = document.createElement('canvas');
+        const cellWidth = 200;
+        const cellHeight = 200;
+        canvas.width = cellWidth * 3;
+        canvas.height = cellHeight * 3;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'background';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const imagePromises = cells.map((cell, i) => {
+            const image = new Image();
+            image.src = cell.imageUrl;
+            image.crossOrigin = 'anonymous';
+            return new Promise(resolve => {
+                image.onload = () => {
+                    const x = (i % 3) * cellWidth;
+                    const y = Math.floor(i / 3) * cellHeight;
+                    ctx.drawImage(image, x, y, cellWidth, cellHeight);
+                    resolve();
+                };
+            });
+        });
+
+        await Promise.all(imagePromises);
+        const dataURL = canvas.toDataURL('image/png');
+        console.log(dataURL);
+    }
+
 </script>
 
 <div class="flex flex-row items-center justify-center h-screen">
@@ -68,7 +100,10 @@
             {/each}
         </div>
         <div class="absolute bottom-5 right-5">
-            <Lightswitch />
+            <div class="flex flex-row items-center space-x-2 justify-center">
+                <Button on:click={() => handleExport()} variant="outline">Export</Button>    
+                <Lightswitch />
+            </div>
         </div>
         <Sheet.Content class="w-screen" side="left">
             <Sheet.Header>
