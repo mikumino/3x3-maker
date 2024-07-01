@@ -66,6 +66,9 @@
         canvas.width = cellWidth * 3;
         canvas.height = cellHeight * 3;
         const ctx = canvas.getContext('2d');
+        if (!ctx) {
+            throw new Error('Could not get canvas context');
+        }
         ctx.fillStyle = 'background';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         const imagePromises = cells.map((cell, i) => {
@@ -92,7 +95,7 @@
 <div class="flex flex-row items-center justify-center h-screen">
     <Sheet.Root bind:open>
         <Sheet.Trigger class="hidden"></Sheet.Trigger>
-        <div class="grid grid-cols-3 gap-1" use:dndzone={{ items: cells, flipDurationMs: 300}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
+        <div class="grid grid-cols-3 gap-1" use:dndzone={{ items: cells, flipDurationMs: 300 }} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
             {#each cells as cell (cell.id)}
             <div animate:flip="{{duration: 300}}">
                 <Cell on:click={(e) => handleCellClick(e.detail)} data={cell} />
