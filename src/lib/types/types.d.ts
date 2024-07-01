@@ -10,3 +10,8 @@ interface SearchQuery {
     selectedAnimangaSubType: string;
     selectedGameSubType: string;
 }
+
+interface Result {
+    imageUrl: string;
+    title: string;
+}

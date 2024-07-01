@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { quintOut } from "svelte/easing";
-    import { fly } from "svelte/transition";
+	import SearchResult from "./search-result.svelte";
     import { createEventDispatcher } from "svelte";
     export let cell: CellData;
     export let searchQuery: SearchQuery;
@@ -21,11 +20,6 @@
                 }[]
             }
         }
-    }
-
-    interface Result {
-        imageUrl: string;
-        title: string;
     }
 
     let results: Result[] = [];
@@ -72,11 +66,11 @@
         }
     }
 
-    const handleResultClick = (result: Result) => {
-        console.log(result);
-        cell.imageUrl = result.imageUrl;
-        cell.title = result.title;
-        dispatch('resultClick', result);
+    const handleResultClick = (e: CustomEvent) => {
+        console.log(e.detail);
+        cell.imageUrl = e.detail.imageUrl;
+        cell.title = e.detail.title;
+        dispatch('resultClick', e.detail);
         console.log(cell);
     }
 
@@ -91,14 +85,6 @@
 
 <div class="grid grid-cols-2 overflow-y-auto gap-4 p-4 max-h-full">
     {#each results as result, i (result.imageUrl)}
-    <button on:click={() => handleResultClick(result)} class="aspect-square grid-rows-1 grid-cols-1">
-        <img 
-        in:fly={{y: 10, easing: quintOut, duration: 300, delay: 300 + 50*i}} 
-        out:fly={{y: 10, easing: quintOut, duration: 300}}
-        class="object-cover h-full w-full rounded-sm col-span-1 row-span-1" 
-        src={result.imageUrl} 
-        alt={result.title} 
-        />
-    </button>
+        <SearchResult result={result} on:resultClick={handleResultClick} />
     {/each}
 </div>
