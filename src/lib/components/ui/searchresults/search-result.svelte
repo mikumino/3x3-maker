@@ -2,6 +2,7 @@
     import { quintOut } from "svelte/easing";
     import { fly } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
+    import { toast } from "svelte-sonner";
 	import Button from "../button/button.svelte";
 
     export let result: Result;
@@ -14,7 +15,7 @@
 
     const handleCropClick = (e: Event) => {
         e.stopPropagation();
-        console.log('crop click');
+        toast("Cropping is not yet implemented.");
     }
 
 </script>

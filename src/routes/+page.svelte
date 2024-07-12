@@ -7,6 +7,7 @@
 	import Input from "$lib/components/ui/input/input.svelte";
     import { flip } from "svelte/animate";
     import { dndzone } from "svelte-dnd-action";
+    import { Toaster } from "$lib/components/ui/sonner";
 
     let open = false;
     let selectedCell: CellData;
@@ -92,6 +93,7 @@
 
 </script>
 
+<Toaster />
 <div class="flex flex-row items-center justify-center h-screen">
     <Sheet.Root bind:open>
         <Sheet.Trigger class="hidden"></Sheet.Trigger>
