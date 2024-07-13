@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SearchResult from "./search-result.svelte";
     import { createEventDispatcher } from "svelte";
+    import { LASTFM_API_KEY } from "$env/static/private";
     export let cell: CellData;
     export let searchQuery: SearchQuery;
 
@@ -17,6 +18,17 @@
                         extraLarge: string;
                     },
                     popularity: number;
+                }[]
+            }
+        }
+    }
+
+    interface LastfmResponse {
+        results: {
+            albummatches: {
+                album: {
+                    name: string;
+                    image: string[];
                 }[]
             }
         }
@@ -63,6 +75,17 @@
             }))
             .filter(result => result.imageUrl);
 
+        } else if (searchQuery.type === "music") {
+            const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchQuery.query}&api_key=${LASTFM_API_KEY}&format=json`);
+            const data: LastfmResponse = await response.json();
+            console.log(data);
+
+            // results = data.results.albummatches.album
+            //     .filter(result => result.image)
+            //     .map(album => ({
+            //         imageUrl: album.image[0],
+            //         title: album.name,
+            //     }))
         }
     }
 
