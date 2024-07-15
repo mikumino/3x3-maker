@@ -56,39 +56,8 @@
         cells = e.detail.items;
     }
 
-    // TODO: make this fully work
-    // It kinda draws some stuff, but it's not fully working
-    // I might have my dimensions wrong
     const handleExport = async () => {
-        // turn cells into an image
-        const canvas = document.createElement('canvas');
-        const cellWidth = 200;
-        const cellHeight = 200;
-        canvas.width = cellWidth * 3;
-        canvas.height = cellHeight * 3;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-            throw new Error('Could not get canvas context');
-        }
-        ctx.fillStyle = 'background';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        const imagePromises = cells.map((cell, i) => {
-            const image = new Image();
-            image.src = cell.imageUrl;
-            image.crossOrigin = 'anonymous';
-            return new Promise(resolve => {
-                image.onload = () => {
-                    const x = (i % 3) * cellWidth;
-                    const y = Math.floor(i / 3) * cellHeight;
-                    ctx.drawImage(image, x, y, cellWidth, cellHeight);
-                    resolve();
-                };
-            });
-        });
-
-        await Promise.all(imagePromises);
-        const dataURL = canvas.toDataURL('image/png');
-        console.log(dataURL);
+        console.log("aaa")
     }
 
 </script>
